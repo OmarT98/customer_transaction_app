@@ -12,7 +12,7 @@ const TransactionChart = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/transactions")
+      .get("https://OmarT98.github.io/customer_transaction_app/transactions")
       .then((response) => {
         setTransactions(response.data);
       })
@@ -21,7 +21,7 @@ const TransactionChart = () => {
       });
 
     axios
-      .get("http://localhost:5000/customers")
+      .get("https://OmarT98.github.io/customer_transaction_app/customers")
       .then((response) => {
         setCustomers(response.data.map((customer) => customer.name));
       })
