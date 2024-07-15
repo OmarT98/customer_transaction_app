@@ -11,23 +11,35 @@ const TransactionChart = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/transactions")
-      .then((response) => {
-        setTransactions(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching transactions:", error);
-      });
+    const fetchLocalData = () => {
+      fetch("./db.json")
+        .then((response) => response.json())
+        .then((data) => {
+          setTransactions(data.transactions);
+          setCustomers(data.customers.map((customer) => customer.name));
+        })
+        .catch((error) => {
+          console.error("Error fetching local data:", error);
+          fetchFromAxios();
+        });
+    };
 
-    axios
-      .get("http://localhost:5000/customers")
-      .then((response) => {
-        setCustomers(response.data.map((customer) => customer.name));
-      })
-      .catch((error) => {
-        console.error("Error fetching customers:", error);
-      });
+    const fetchFromAxios = () => {
+      axios
+        .get("http://localhost:5000/transactions")
+        .then((response) => {
+          setTransactions(response.data);
+        })
+        .catch((error) => console.error("Error fetching transactions:", error));
+      axios
+        .get("http://localhost:5000/customers")
+        .then((response) => {
+          setCustomers(response.data.map((customer) => customer.name));
+        })
+        .catch((error) => console.error("Error fetching customers:", error));
+    };
+
+    fetchLocalData();
   }, []);
 
   // Filter transactions for the selected customer

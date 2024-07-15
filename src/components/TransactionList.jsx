@@ -11,15 +11,32 @@ const TransactionList = () => {
   const [maxAmountFilter, setMaxAmountFilter] = useState(10000);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/transactions")
-      .then((response) => setTransactions(response.data))
-      .catch((error) => console.error("Error fetching transactions:", error));
+    const fetchLocalData = () => {
+      fetch("./db.json")
+        .then((response) => response.json())
+        .then((data) => {
+          setTransactions(data.transactions);
+          setCustomers(data.customers);
+        })
+        .catch((error) => {
+          console.error("Error fetching local data:", error);
+          fetchFromAxios();
+        });
+    };
 
-    axios
-      .get("http://localhost:5000/customers")
-      .then((response) => setCustomers(response.data))
-      .catch((error) => console.error("Error fetching customers:", error));
+    const fetchFromAxios = () => {
+      axios
+        .get("http://localhost:5000/transactions")
+        .then((response) => setTransactions(response.data))
+        .catch((error) => console.error("Error fetching transactions:", error));
+
+      axios
+        .get("http://localhost:5000/customers")
+        .then((response) => setCustomers(response.data))
+        .catch((error) => console.error("Error fetching customers:", error));
+    };
+
+    fetchLocalData();
   }, []);
 
   // Update filtered transactions when customer filter changes
