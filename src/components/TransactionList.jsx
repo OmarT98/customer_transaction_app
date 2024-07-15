@@ -12,12 +12,12 @@ const TransactionList = () => {
 
   useEffect(() => {
     axios
-      .get("https://OmarT98.github.io/customer_transaction_app/transactions")
+      .get("http://localhost:3000/transactions")
       .then((response) => setTransactions(response.data))
       .catch((error) => console.error("Error fetching transactions:", error));
 
     axios
-      .get("https://OmarT98.github.io/customer_transaction_app/customers")
+      .get("http://localhost:3000/customers")
       .then((response) => setCustomers(response.data))
       .catch((error) => console.error("Error fetching customers:", error));
   }, []);
