@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import db from "./db";
 
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
@@ -12,29 +13,22 @@ const TransactionList = () => {
 
   useEffect(() => {
     const fetchLocalData = () => {
-      fetch("./db.json")
-        .then((response) => response.json())
-        .then((data) => {
-          setTransactions(data.transactions);
-          setCustomers(data.customers);
-        })
-        .catch((error) => {
-          console.error("Error fetching local data:", error);
-          fetchFromAxios();
-        });
+      // Use the imported data from db.js
+      setTransactions(db.transactions);
+      setCustomers(db.customers);
     };
 
-    const fetchFromAxios = () => {
-      axios
-        .get("http://localhost:5000/transactions")
-        .then((response) => setTransactions(response.data))
-        .catch((error) => console.error("Error fetching transactions:", error));
+    // const fetchFromAxios = () => {
+    //   axios
+    //     .get("http://localhost:5000/transactions")
+    //     .then((response) => setTransactions(response.data))
+    //     .catch((error) => console.error("Error fetching transactions:", error));
 
-      axios
-        .get("http://localhost:5000/customers")
-        .then((response) => setCustomers(response.data))
-        .catch((error) => console.error("Error fetching customers:", error));
-    };
+    //   axios
+    //     .get("http://localhost:5000/customers")
+    //     .then((response) => setCustomers(response.data))
+    //     .catch((error) => console.error("Error fetching customers:", error));
+    // };
 
     fetchLocalData();
   }, []);

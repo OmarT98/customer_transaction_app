@@ -3,11 +3,15 @@ import { useState, useEffect } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 
 import { Bar } from "react-chartjs-2";
-import axios from "axios";
+import db from "./db";
+
+// import axios from "axios";
 
 const TransactionChart = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [customers, setCustomers] = useState([]);
+  const [transactions, setTransactions] = useState(db.transactions);
+  const [customers, setCustomers] = useState(
+    db.customers.map((customer) => customer.name)
+  );
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
@@ -20,24 +24,24 @@ const TransactionChart = () => {
         })
         .catch((error) => {
           console.error("Error fetching local data:", error);
-          fetchFromAxios();
+          // fetchFromAxios();
         });
     };
 
-    const fetchFromAxios = () => {
-      axios
-        .get("http://localhost:5000/transactions")
-        .then((response) => {
-          setTransactions(response.data);
-        })
-        .catch((error) => console.error("Error fetching transactions:", error));
-      axios
-        .get("http://localhost:5000/customers")
-        .then((response) => {
-          setCustomers(response.data.map((customer) => customer.name));
-        })
-        .catch((error) => console.error("Error fetching customers:", error));
-    };
+    // const fetchFromAxios = () => {
+    //   axios
+    //     .get("http://localhost:5000/transactions")
+    //     .then((response) => {
+    //       setTransactions(response.data);
+    //     })
+    //     .catch((error) => console.error("Error fetching transactions:", error));
+    //   axios
+    //     .get("http://localhost:5000/customers")
+    //     .then((response) => {
+    //       setCustomers(response.data.map((customer) => customer.name));
+    //     })
+    //     .catch((error) => console.error("Error fetching customers:", error));
+    // };
 
     fetchLocalData();
   }, []);
