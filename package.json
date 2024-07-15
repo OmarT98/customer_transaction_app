@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "concurrently \"gh-pages -d dist\" \"npm run server\"",
+    "deploy": "gh-pages -d dist",
     "start": "concurrently \"npm run server\" \"npm run dev\"",
     "server": "json-server --watch db.json --port 5000",
     "dev": "vite",
