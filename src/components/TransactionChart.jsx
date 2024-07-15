@@ -2,47 +2,36 @@ import { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from "chart.js/auto";
 
+// import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import db from "./db";
 
 // import axios from "axios";
 
 const TransactionChart = () => {
-  const [transactions, setTransactions] = useState(db.transactions);
-  const [customers, setCustomers] = useState(
-    db.customers.map((customer) => customer.name)
-  );
+  const [transactions, setTransactions] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
     const fetchLocalData = () => {
-      fetch("./db.json")
-        .then((response) => response.json())
-        .then((data) => {
-          setTransactions(data.transactions);
-          setCustomers(data.customers.map((customer) => customer.name));
-        })
-        .catch((error) => {
-          console.error("Error fetching local data:", error);
-          // fetchFromAxios();
-        });
+      setTransactions(db.transactions);
+      setCustomers(db.customers.map((customer) => customer.name));
     };
 
     // const fetchFromAxios = () => {
     //   axios
     //     .get("http://localhost:5000/transactions")
-    //     .then((response) => {
-    //       setTransactions(response.data);
-    //     })
+    //     .then((response) => setTransactions(response.data))
     //     .catch((error) => console.error("Error fetching transactions:", error));
+
     //   axios
     //     .get("http://localhost:5000/customers")
-    //     .then((response) => {
-    //       setCustomers(response.data.map((customer) => customer.name));
-    //     })
+    //     .then((response) =>
+    //       setCustomers(response.data.map((customer) => customer.name))
+    //     )
     //     .catch((error) => console.error("Error fetching customers:", error));
     // };
-
     fetchLocalData();
   }, []);
 

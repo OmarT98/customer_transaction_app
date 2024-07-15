@@ -13,7 +13,6 @@ const TransactionList = () => {
 
   useEffect(() => {
     const fetchLocalData = () => {
-      // Use the imported data from db.js
       setTransactions(db.transactions);
       setCustomers(db.customers);
     };
