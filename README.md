@@ -6,3 +6,4 @@
 
 - React
 - Tailwind CSS
+- Chart JS
