@@ -11,11 +11,8 @@ const TransactionChart = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
-    const transactionsUrl = "/transactions";
-    const customersUrl = "/customers";
-
     axios
-      .get(transactionsUrl)
+      .get("http://localhost:5000/transactions")
       .then((response) => {
         setTransactions(response.data);
       })
@@ -24,7 +21,7 @@ const TransactionChart = () => {
       });
 
     axios
-      .get(customersUrl)
+      .get("http://localhost:5000/customers")
       .then((response) => {
         setCustomers(response.data.map((customer) => customer.name));
       })

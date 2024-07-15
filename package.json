@@ -7,8 +7,9 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "start:server": "json-server --watch db.json --port 5000",
-    "dev": "vite --host",
+    "start": "concurrently \"npm run server\" \"npm run dev\"",
+    "server": "json-server --watch db.json --port 5000",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
