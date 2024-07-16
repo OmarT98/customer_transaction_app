@@ -7,3 +7,5 @@
 - React
 - Tailwind CSS
 - Chart JS
+
+![CustomerTransactionApp](https://github.com/user-attachments/assets/41e2ef0b-4261-4e21-8710-ee8a6e4b76c5)
